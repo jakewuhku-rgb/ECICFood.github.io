@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="zh-HK" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcIc Food | 鮮食材 · 智能廚房 · 極速送到家</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        navy: {
+                            800: '#132A4A',
+                            900: '#0B192C',
+                            950: '#060F1C',
+                        },
+                        emerald: {
+                            500: '#10B981',
+                            600: '#0A5C36',
+                            700: '#064326',
+                        },
+                        coral: {
+                            400: '#FF8787',
+                            500: '#FF6B6B',
+                            600: '#E05353',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', '"Noto Sans TC"', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Font Awesome & Google Fonts -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;600;700;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Plus Jakarta Sans', 'Noto Sans TC', sans-serif; }
+        .glass-header { background: rgba(11, 25, 44, 0.92); backdrop-filter: blur(12px); }
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #0A5C36; border-radius: 9999px; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 flex flex-col min-h-screen pb-16 md:pb-0">
+
+    <!-- Announcement Bar -->
+    <div class="bg-gradient-to-r from-emerald-600 to-emerald-700 text-white text-xs md:text-sm py-2 px-4 text-center font-medium shadow-inner flex justify-between items-center px-6">
+        <span class="mx-auto flex items-center gap-2">
+            <i class="fa-solid fa-fire text-amber-300"></i>
+            <span>在家也能做大廚！首單輸入 <strong>【COOKHAPPY】</strong> 即享 HK$50 優惠 + 免運費</span>
+        </span>
+    </div>
+
+    <!-- Desktop & Mobile Main Header -->
+    <header class="sticky top-0 z-40 glass-header text-white border-b border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Logo -->
+                <a href="#" class="flex items-center space-x-3 group">
+                    <div class="w-11 h-11 rounded-2xl bg-gradient-to-br from-emerald-500 to-coral-500 flex items-center justify-center text-white font-black text-xl shadow-lg shadow-emerald-900/50 group-hover:scale-105 transition-transform">
+                        E
+                    </div>
+                    <div>
+                        <div class="text-2xl font-black tracking-wider bg-gradient-to-r from-white via-slate-100 to-emerald-400 bg-clip-text text-transparent">
+                            EcIc<span class="text-coral-500">Food</span>
+                        </div>
+                        <p class="text-[10px] text-slate-400 tracking-widest font-semibold uppercase -mt-1">Fresh Food & AI Kitchen</p>
+                    </div>
+                </a>
+
+                <!-- Location Switcher (Desktop) -->
+                <div class="hidden lg:flex items-center space-x-2 bg-navy-800/80 px-3 py-1.5 rounded-full border border-slate-700 text-xs">
+                    <i class="fa-solid fa-location-dot text-coral-500"></i>
+                    <span class="text-slate-300">配送至：</span>
+                    <select class="bg-transparent text-white font-medium focus:outline-none cursor-pointer">
+                        <option class="bg-navy-900">香港島 (Hong Kong Island)</option>
+                        <option class="bg-navy-900">九龍 (Kowloon)</option>
+                        <option class="bg-navy-900">新界 (New Territories)</option>
+                    </select>
+                </div>
+
+                <!-- Desktop Nav Navigation -->
+                <nav class="hidden md:flex items-center space-x-8 text-sm font-semibold">
+                    <a href="#products" class="text-slate-200 hover:text-emerald-400 transition-colors">優質食材</a>
+                    <a href="#ai-kitchen" onclick="openAiKitchenModal()" class="flex items-center space-x-2 text-amber-300 hover:text-amber-200 bg-amber-500/10 px-3 py-1.5 rounded-full border border-amber-500/30 transition-all hover:bg-amber-500/20">
+                        <i class="fa-solid fa-wand-magic-sparkles text-amber-400 animate-pulse"></i>
+                        <span>EcIc AI 智能廚房</span>
+                        <span class="bg-coral-500 text-white text-[10px] px-1.5 py-0.5 rounded-full font-bold">New</span>
+                    </a>
+                    <a href="#recipes" class="text-slate-200 hover:text-emerald-400 transition-colors">大廚食譜</a>
+                    <a href="#about" class="text-slate-200 hover:text-emerald-400 transition-colors">品牌理念</a>
+                </nav>
+
+                <!-- Search & Cart CTA Actions -->
+                <div class="flex items-center space-x-4">
+                    <button onclick="openAiKitchenModal()" class="hidden sm:flex items-center space-x-2 bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-500 hover:to-emerald-600 text-white px-4 py-2 rounded-xl text-xs font-bold transition shadow-md shadow-emerald-900/30">
+                        <i class="fa-solid fa-utensils"></i>
+                        <span>想煮咩？一鍵配食材</span>
+                    </button>
+                    
+                    <button id="cartBtn" onclick="toggleCartModal()" class="relative p-2.5 bg-navy-800 hover:bg-slate-800 text-white rounded-xl border border-slate-700 transition">
+                        <i class="fa-solid fa-basket-shopping text-lg text-emerald-400"></i>
+                        <span id="cartCountBadge" class="absolute -top-1.5 -right-1.5 bg-coral-500 text-white text-xs font-extrabold w-5 h-5 rounded-full flex items-center justify-center border-2 border-navy-900">0</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section: Inspire Home Cooking -->
+    <section class="relative bg-navy-900 text-white overflow-hidden py-16 md:py-24 border-b border-slate-800">
+        <div class="absolute inset-0 opacity-20 bg-[radial-gradient(#10B981_1px,transparent_1px)] [background-size:24px_24px]"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 grid md:grid-cols-2 gap-12 items-center">
+            <div class="space-y-6 text-center md:text-left">
+                <div class="inline-flex items-center gap-2 bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 px-4 py-1.5 rounded-full text-xs font-bold tracking-wide uppercase">
+                    <i class="fa-solid fa-kitchen-set"></i> 在家體驗星級下廚樂趣
+                </div>
+                <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight tracking-tight">
+                    極鮮食材直送<br>
+                    <span class="bg-gradient-to-r from-emerald-400 via-teal-300 to-coral-400 bg-clip-text text-transparent">輕鬆煮出大廚級佳餚</span>
+                </h1>
+                <p class="text-slate-300 text-base sm:text-lg max-w-xl mx-auto md:mx-0 leading-relaxed">
+                    <strong>EcIc Food</strong> 為你精選全球急凍海鮮與極鮮食材。配合全新的 <strong class="text-amber-300">AI 智能廚房</strong>，輸入想吃的菜式，自動為你精算份量並配齊食材直送到家！
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start pt-2">
+                    <button onclick="openAiKitchenModal()" class="bg-gradient-to-r from-coral-500 to-coral-600 hover:from-coral-400 hover:to-coral-500 text-white px-8 py-4 rounded-xl font-extrabold text-base transition transform hover:-translate-y-0.5 shadow-xl shadow-coral-500/30 flex items-center justify-center gap-3">
+                        <i class="fa-solid fa-wand-magic-sparkles text-lg"></i>
+                        <span>試用 AI 智能廚房配菜</span>
+                    </button>
+                    <a href="#products" class="bg-navy-800 hover:bg-slate-800 text-slate-200 border border-slate-700 px-8 py-4 rounded-xl font-bold text-base transition text-center">
+                        瀏覽現貨海鮮食材
+                    </a>
+                </div>
+                <div class="grid grid-cols-3 gap-4 pt-6 border-t border-slate-800/80 text-xs text-slate-400">
+                    <div class="flex items-center gap-2 justify-center md:justify-start">
+                        <i class="fa-solid fa-truck-fast text-emerald-400 text-base"></i>
+                        <span>每日急凍全程冷鏈</span>
+                    </div>
+                    <div class="flex items-center gap-2 justify-center md:justify-start">
+                        <i class="fa-solid fa-award text-emerald-400 text-base"></i>
+                        <span>100% 品質鮮度保證</span>
+                    </div>
+                    <div class="flex items-center gap-2 justify-center md:justify-start">
+                        <i class="fa-solid fa-robot text-amber-400 text-base"></i>
+                        <span>AI 食譜自動配料</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- AI Interactive Preview Card -->
+            <div class="relative">
+                <div class="bg-gradient-to-br from-navy-800 to-navy-950 p-6 md:p-8 rounded-3xl border border-slate-700 shadow-2xl space-y-6">
+                    <div class="flex items-center justify-between border-b border-slate-700/80 pb-4">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center font-bold">
+                                <i class="fa-solid fa-wand-magic-sparkles"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-base text-white">EcIc AI 智能廚房助手</h3>
+                                <p class="text-xs text-slate-400">輸入你想煮的菜式，AI 即刻配料</p>
+                            </div>
+                        </div>
+                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">
+                            Live AI
+                        </span>
+                    </div>
+
+                    <div class="space-y-3">
+                        <label class="text-xs font-semibold text-slate-300">熱門想煮菜式速點：</label>
+                        <div class="flex flex-wrap gap-2">
+                            <button onclick="quickInputRecipe('蒜蓉蒸波士頓龍蝦')" class="text-xs bg-navy-900 hover:bg-emerald-600/30 hover:border-emerald-500 text-slate-200 border border-slate-700 px-3 py-1.5 rounded-lg transition">蒜蓉蒸龍蝦</button>
+                            <button onclick="quickInputRecipe('北海道帶子意粉')" class="text-xs bg-navy-900 hover:bg-emerald-600/30 hover:border-emerald-500 text-slate-200 border border-slate-700 px-3 py-1.5 rounded-lg transition">北海道帶子意粉</button>
+                            <button onclick="quickInputRecipe('海鮮海鮮麻辣海鮮鍋')" class="text-xs bg-navy-900 hover:bg-emerald-600/30 hover:border-emerald-500 text-slate-200 border border-slate-700 px-3 py-1.5 rounded-lg transition">香辣海鮮火鍋</button>
+                        </div>
+                        <div class="flex gap-2 pt-1">
+                            <input type="text" id="heroDishInput" placeholder="例如：香煎三文魚配白汁..." class="flex-1 bg-navy-950 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-emerald-500 placeholder-slate-500">
+                            <button onclick="submitHeroAiKitchen()" class="bg-emerald-600 hover:bg-emerald-500 text-white px-5 py-3 rounded-xl font-bold text-sm transition flex items-center gap-2">
+                                <i class="fa-solid fa-sparkles"></i>
+                                <span>生成</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="bg-navy-950/60 rounded-2xl p-4 border border-slate-800 text-xs text-slate-400 flex items-center justify-between">
+                        <span class="flex items-center gap-2">
+                            <i class="fa-solid fa-check-circle text-emerald-400"></i>
+                            一鍵可把配好的鮮食材加入購物車
+                        </span>
+                        <span class="text-coral-400 font-bold">100% 免煩惱</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- AI KITCHEN DEDICATED MODAL SECTION -->
+    <div id="aiKitchenModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md hidden flex items-center justify-center p-4 overflow-y-auto">
+        <div class="bg-navy-900 border border-slate-700 text-white rounded-3xl w-full max-w-3xl max-h-[90vh] flex flex-col shadow-2xl overflow-hidden my-auto">
+            <!-- Modal Header -->
+            <div class="p-6 bg-navy-950 border-b border-slate-800 flex justify-between items-center">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-amber-500 to-coral-500 flex items-center justify-center text-white text-lg font-bold shadow-lg">
+                        <i class="fa-solid fa-wand-magic-sparkles"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-xl font-black text-white flex items-center gap-2">
+                            EcIc AI 智能廚房
+                            <span class="text-xs bg-emerald-500/20 text-emerald-400 font-normal px-2 py-0.5 rounded-full border border-emerald-500/30">Gemini Powered</span>
+                        </h2>
+                        <p class="text-xs text-slate-400">輸入任何你想親自下廚的菜名，AI 為你一鍵生成食材與簡易食譜！</p>
+                    </div>
+                </div>
+                <button onclick="closeAiKitchenModal()" class="w-9 h-9 bg-navy-800 hover:bg-slate-700 rounded-full flex items-center justify-center text-slate-300 transition">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+
+            <!-- Modal Content Body -->
+            <div class="p-6 space-y-6 overflow-y-auto custom-scrollbar flex-1">
+                <!-- Search Input Bar -->
+                <div class="space-y-3">
+                    <label class="block text-sm font-bold text-slate-200">你想煮咩菜式？(Dish Name)</label>
+                    <div class="flex gap-2">
+                        <input type="text" id="aiDishInput" placeholder="例如：蒜蓉牛油煎帶子、日式海鮮鍋、清蒸石斑魚..." class="flex-1 bg-navy-950 border border-slate-700 rounded-xl px-4 py-3.5 text-sm text-white focus:outline-none focus:border-emerald-500 transition placeholder-slate-500">
+                        <button id="generateIngredientsBtn" onclick="generateRecipeWithAi()" class="bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-500 hover:to-emerald-600 text-white px-6 py-3.5 rounded-xl font-bold text-sm transition flex items-center gap-2 shadow-lg shadow-emerald-900/40">
+                            <i class="fa-solid fa-wand-magic-sparkles"></i>
+                            <span>AI 分析食材</span>
+                        </button>
+                    </div>
+                    <!-- Quick Preset Dish Chips -->
+                    <div class="flex flex-wrap items-center gap-2 pt-1">
+                        <span class="text-xs text-slate-400">熱門推介:</span>
+                        <button onclick="setAiDish('蒜蓉蒸波士頓龍蝦')" class="text-xs bg-navy-800 hover:bg-emerald-600/30 text-slate-300 hover:text-white border border-slate-700 px-3 py-1 rounded-full transition">蒜蓉蒸龍蝦</button>
+                        <button onclick="setAiDish('香煎刺身級北海道帶子')" class="text-xs bg-navy-800 hover:bg-emerald-600/30 text-slate-300 hover:text-white border border-slate-700 px-3 py-1 rounded-full transition">香煎北海道帶子</button>
+                        <button onclick="setAiDish('西班牙海鮮燉飯')" class="text-xs bg-navy-800 hover:bg-emerald-600/30 text-slate-300 hover:text-white border border-slate-700 px-3 py-1 rounded-full transition">西班牙海鮮飯</button>
+                        <button onclick="setAiDish('泰式酸辣海鮮湯')" class="text-xs bg-navy-800 hover:bg-emerald-600/30 text-slate-300 hover:text-white border border-slate-700 px-3 py-1 rounded-full transition">泰式海鮮湯</button>
+                    </div>
+                </div>
+
+                <!-- Loading State -->
+                <div id="aiLoadingState" class="hidden py-12 text-center space-y-4">
+                    <div class="inline-block relative">
+                        <div class="w-16 h-16 border-4 border-emerald-500/20 border-t-emerald-500 rounded-full animate-spin"></div>
+                        <i class="fa-solid fa-robot text-emerald-400 absolute inset-0 m-auto w-6 h-6 flex items-center justify-center"></i>
+                    </div>
+                    <p class="text-slate-300 font-semibold text-sm animate-pulse">EcIc AI 正為你計算完美配料份量與配對 EcIc Food 鮮食材...</p>
+                </div>
+
+                <!-- AI Generated Result Container -->
+                <div id="aiResultContainer" class="hidden space-y-6">
+                    <div class="bg-navy-950 p-5 rounded-2xl border border-slate-800 flex items-center justify-between">
+                        <div>
+                            <span class="text-xs text-emerald-400 font-bold uppercase tracking-wider">AI 食譜提案</span>
+                            <h3 id="resDishTitle" class="text-2xl font-black text-white">蒜蓉蒸波士頓龍蝦</h3>
+                            <p id="resServings" class="text-xs text-slate-400 mt-1">適合 2-3 人家庭享用 · 預計準備時間：20 分鐘</p>
+                        </div>
+                        <button onclick="addAllAiIngredientsToCart()" class="bg-coral-500 hover:bg-coral-400 text-white px-5 py-3 rounded-xl font-black text-sm transition shadow-lg shadow-coral-500/30 flex items-center gap-2">
+                            <i class="fa-solid fa-cart-plus"></i>
+                            <span>一鍵將所有食材加入購物車</span>
+                        </button>
+                    </div>
+
+                    <!-- Ingredients List -->
+                    <div class="space-y-3">
+                        <h4 class="font-bold text-sm text-slate-200 flex items-center gap-2">
+                            <i class="fa-solid fa-list-check text-emerald-400"></i>
+                            需要食材與 EcIc Food 直送清單
+                        </h4>
+                        <div id="resIngredientsList" class="grid sm:grid-cols-2 gap-3">
+                            <!-- Populated via JS -->
+                        </div>
+                    </div>
+
+                    <!-- Cooking Steps -->
+                    <div class="space-y-3 pt-2">
+                        <h4 class="font-bold text-sm text-slate-200 flex items-center gap-2">
+                            <i class="fa-solid fa-fire-burner text-amber-400"></i>
+                            大廚級簡易下廚步驟
+                        </h4>
+                        <div id="resCookingSteps" class="bg-navy-950/80 p-4 rounded-2xl border border-slate-800 space-y-2 text-xs text-slate-300 leading-relaxed">
+                            <!-- Populated via JS -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Product Catalog Section -->
+    <section id="products" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
+            <div>
+                <span class="text-emerald-600 font-bold text-xs uppercase tracking-widest">Fresh & Guaranteed</span>
+                <h2 class="text-3xl font-extrabold text-navy-900 mt-1">EcIc 特選極鮮食材</h2>
+                <p class="text-slate-500 text-sm mt-1">嚴選全球捕撈海鮮與精選食材，適合自家烹飪</p>
+            </div>
+            
+            <!-- Category Filters -->
+            <div class="flex flex-wrap gap-2">
+                <button onclick="filterProducts('all')" class="filter-btn active bg-navy-900 text-white px-4 py-2 rounded-xl text-xs font-bold transition">全部食材</button>
+                <button onclick="filterProducts('lobster')" class="filter-btn bg-white border border-slate-200 text-slate-700 hover:bg-slate-100 px-4 py-2 rounded-xl text-xs font-bold transition">龍蝦蟹類</button>
+                <button onclick="filterProducts('scallop')" class="filter-btn bg-white border border-slate-200 text-slate-700 hover:bg-slate-100 px-4 py-2 rounded-xl text-xs font-bold transition">刺身帶子</button>
+                <button onclick="filterProducts('fish')" class="filter-btn bg-white border border-slate-200 text-slate-700 hover:bg-slate-100 px-4 py-2 rounded-xl text-xs font-bold transition">三文魚/魚類</button>
+            </div>
+        </div>
+
+        <!-- Product Grid -->
+        <div id="productGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <!-- Rendered by JS -->
+        </div>
+    </section>
+
+    <!-- Slide-over Interactive Shopping Cart Drawer -->
+    <div id="cartDrawer" class="fixed inset-0 z-50 overflow-hidden pointer-events-none">
+        <div id="cartBackdrop" onclick="toggleCartModal()" class="absolute inset-0 bg-black/60 opacity-0 transition-opacity duration-300 ease-in-out pointer-events-auto hidden"></div>
+
+        <div class="fixed inset-y-0 right-0 max-w-full flex pl-10">
+            <div id="cartPanel" class="w-screen max-w-md bg-white shadow-2xl flex flex-col transform translate-x-full transition-transform duration-300 ease-in-out pointer-events-auto">
+                <div class="p-6 bg-navy-900 text-white flex items-center justify-between">
+                    <div class="flex items-center space-x-3">
+                        <i class="fa-solid fa-basket-shopping text-emerald-400 text-xl"></i>
+                        <h3 class="font-black text-lg">EcIc Food 購物車</h3>
+                    </div>
+                    <button onclick="toggleCartModal()" class="text-slate-400 hover:text-white transition">
+                        <i class="fa-solid fa-xmark text-xl"></i>
+                    </button>
+                </div>
+
+                <!-- Cart Items Container -->
+                <div id="cartItemsContainer" class="flex-1 overflow-y-auto p-6 space-y-4 divide-y divide-slate-100 custom-scrollbar">
+                    <!-- Populated via JS -->
+                </div>
+
+                <!-- Cart Footer -->
+                <div class="p-6 border-t border-slate-200 bg-slate-50 space-y-4">
+                    <div class="space-y-1.5 text-sm">
+                        <div class="flex justify-between text-slate-500">
+                            <span>小計 (Subtotal)</span>
+                            <span id="cartSubtotal" class="font-bold text-slate-800">HK$ 0</span>
+                        </div>
+                        <div class="flex justify-between text-slate-500">
+                            <span>冷鏈運費 (Cold Chain Express)</span>
+                            <span id="cartShipping" class="font-bold text-emerald-600">免費 (Free)</span>
+                        </div>
+                        <div class="flex justify-between text-base font-black text-navy-900 pt-2 border-t border-slate-200">
+                            <span>總計 (Total)</span>
+                            <span id="cartTotal" class="text-coral-600 text-xl">HK$ 0</span>
+                        </div>
+                    </div>
+
+                    <button onclick="checkoutCart()" class="w-full bg-gradient-to-r from-coral-500 to-coral-600 hover:from-coral-400 hover:to-coral-500 text-white py-3.5 rounded-xl font-extrabold text-sm transition shadow-lg shadow-coral-500/30 flex items-center justify-center space-x-2">
+                        <span>結帳下單 (Checkout)</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Bottom Fixed Navigation Bar (4-Tab Layout including AI Kitchen) -->
+    <nav class="md:hidden fixed bottom-0 left-0 right-0 bg-navy-900/95 backdrop-blur-md border-t border-slate-800 z-40 text-slate-400 text-[10px] font-bold">
+        <div class="grid grid-cols-4 h-16">
+            <a href="#" class="flex flex-col items-center justify-center text-emerald-400">
+                <i class="fa-solid fa-house text-lg mb-1"></i>
+                <span>首頁</span>
+            </a>
+            <a href="#products" class="flex flex-col items-center justify-center hover:text-white">
+                <i class="fa-solid fa-store text-lg mb-1"></i>
+                <span>鮮食材</span>
+            </a>
+            <button onclick="openAiKitchenModal()" class="flex flex-col items-center justify-center text-amber-400">
+                <i class="fa-solid fa-wand-magic-sparkles text-lg mb-1 animate-bounce"></i>
+                <span>AI 廚房</span>
+            </button>
+            <button onclick="toggleCartModal()" class="flex flex-col items-center justify-center relative hover:text-white">
+                <i class="fa-solid fa-basket-shopping text-lg mb-1"></i>
+                <span>購物車</span>
+                <span id="mobileCartBadge" class="absolute top-2 right-6 bg-coral-500 text-white text-[9px] w-4 h-4 rounded-full flex items-center justify-center">0</span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Floating WhatsApp Button -->
+    <a href="https://wa.me/" target="_blank" class="fixed bottom-20 md:bottom-6 right-6 bg-emerald-500 hover:bg-emerald-600 text-white w-12 h-12 rounded-full shadow-2xl flex items-center justify-center z-30 transition transform hover:scale-110">
+        <i class="fa-brands fa-whatsapp text-2xl"></i>
+    </a>
+
+    <!-- Application Script -->
+    <script>
+        // Sample Products Database
+        const products = [
+            { id: 1, name: "加拿大野生波士頓龍蝦 (500g)", category: "lobster", price: 188, oldPrice: 238, img: "https://images.unsplash.com/photo-1553659971-f01207805fe1?auto=format&fit=crop&w=600&q=80", tag: "熱賣" },
+            { id: 2, name: "日本北海道刺身級帶子 1kg (3S)", category: "scallop", price: 298, oldPrice: 350, img: "https://images.unsplash.com/photo-1599084993091-1cb5c0721cc6?auto=format&fit=crop&w=600&q=80", tag: "刺身級" },
+            { id: 3, name: "挪威冰鮮三文魚柳 (400g)", category: "fish", price: 118, oldPrice: 148, img: "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?auto=format&fit=crop&w=600&q=80", tag: "高蛋白" },
+            { id: 4, name: "西班牙黑毛豬梅肉片 (300g)", category: "other", price: 88, oldPrice: 108, img: "https://images.unsplash.com/photo-1603048588665-791ca8aea617?auto=format&fit=crop&w=600&q=80", tag: "火鍋必備" },
+            { id: 5, name: "特大日本蒜蓉醬汁包 (150g)", category: "sauce", price: 28, oldPrice: 38, img: "https://images.unsplash.com/photo-1588880331179-bc9b93a8cb5e?auto=format&fit=crop&w=600&q=80", tag: "調味料" },
+            { id: 6, name: "澳洲 M7 和牛火鍋肉片 (250g)", category: "other", price: 168, oldPrice: 198, img: "https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=600&q=80", tag: "極品" }
+        ];
+
+        let cart = [];
+        let currentAiIngredients = [];
+
+        // Render Products
+        function renderProducts(items = products) {
+            const grid = document.getElementById('productGrid');
+            grid.innerHTML = items.map(p => `
+                <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-xl transition duration-300 flex flex-col group">
+                    <div class="relative overflow-hidden aspect-video bg-slate-100">
+                        <img src="${p.img}" alt="${p.name}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" onerror="this.src='https://placehold.co/600x400/0B192C/FFFFFF?text=EcIc+Food'">
+                        <span class="absolute top-3 left-3 bg-coral-500 text-white text-[10px] font-extrabold px-2 py-1 rounded-md shadow">${p.tag}</span>
+                    </div>
+                    <div class="p-5 flex-1 flex flex-col justify-between space-y-4">
+                        <div>
+                            <h3 class="font-bold text-navy-900 text-sm group-hover:text-emerald-600 transition">${p.name}</h3>
+                        </div>
+                        <div class="flex items-center justify-between pt-2 border-t border-slate-100">
+                            <div>
+                                <span class="text-coral-600 font-extrabold text-base">HK$ ${p.price}</span>
+                                <span class="text-slate-400 text-xs line-through ml-1">HK$ ${p.oldPrice}</span>
+                            </div>
+                            <button onclick="addToCart(${p.id})" class="bg-emerald-600 hover:bg-emerald-700 text-white p-2.5 rounded-xl transition shadow-md shadow-emerald-900/20">
+                                <i class="fa-solid fa-cart-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Cart Management
+        function addToCart(productId) {
+            const item = products.find(p => p.id === productId);
+            if (!item) return;
+            const existing = cart.find(c => c.id === productId);
+            if (existing) {
+                existing.qty++;
+            } else {
+                cart.push({ ...item, qty: 1 });
+            }
+            updateCartUI();
+            toggleCartModal(true);
+        }
+
+        function updateCartQty(id, change) {
+            const item = cart.find(c => c.id === id);
+            if (!item) return;
+            item.qty += change;
+            if (item.qty <= 0) {
+                cart = cart.filter(c => c.id !== id);
+            }
+            updateCartUI();
+        }
+
+        function updateCartUI() {
+            const totalCount = cart.reduce((acc, c) => acc + c.qty, 0);
+            document.getElementById('cartCountBadge').innerText = totalCount;
+            document.getElementById('mobileCartBadge').innerText = totalCount;
+
+            const container = document.getElementById('cartItemsContainer');
+            if (cart.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center py-12 text-slate-400 space-y-3">
+                        <i class="fa-solid fa-basket-shopping text-4xl"></i>
+                        <p class="text-sm font-medium">購物車仲係空的，快啲去揀鮮食材啦！</p>
+                    </div>
+                `;
+            } else {
+                container.innerHTML = cart.map(item => `
+                    <div class="flex items-center space-x-4 py-3">
+                        <img src="${item.img}" class="w-16 h-16 rounded-xl object-cover bg-slate-100" onerror="this.src='https://placehold.co/100/0B192C/FFFFFF?text=Food'">
+                        <div class="flex-1">
+                            <h4 class="font-bold text-xs text-navy-900">${item.name}</h4>
+                            <span class="text-coral-600 font-extrabold text-xs">HK$ ${item.price}</span>
+                        </div>
+                        <div class="flex items-center space-x-2 bg-slate-100 p-1 rounded-lg">
+                            <button onclick="updateCartQty(${item.id}, -1)" class="w-6 h-6 bg-white rounded flex items-center justify-center text-xs text-slate-700 shadow-sm font-bold">-</button>
+                            <span class="text-xs font-bold px-1">${item.qty}</span>
+                            <button onclick="updateCartQty(${item.id}, 1)" class="w-6 h-6 bg-white rounded flex items-center justify-center text-xs text-slate-700 shadow-sm font-bold">+</button>
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            const subtotal = cart.reduce((acc, c) => acc + (c.price * c.qty), 0);
+            document.getElementById('cartSubtotal').innerText = `HK$ ${subtotal}`;
+            document.getElementById('cartTotal').innerText = `HK$ ${subtotal}`;
+        }
+
+        function toggleCartModal(forceOpen = false) {
+            const backdrop = document.getElementById('cartBackdrop');
+            const panel = document.getElementById('cartPanel');
+            const isOpen = !backdrop.classList.contains('hidden');
+
+            if (forceOpen || !isOpen) {
+                backdrop.classList.remove('hidden');
+                setTimeout(() => backdrop.classList.remove('opacity-0'), 10);
+                panel.classList.remove('translate-x-full');
+            } else {
+                panel.classList.add('translate-x-full');
+                backdrop.classList.add('opacity-0');
+                setTimeout(() => backdrop.classList.add('hidden'), 300);
+            }
+        }
+
+        function checkoutCart() {
+            if (cart.length === 0) {
+                alert("你的購物車是空的，請先選擇食材！");
+                return;
+            }
+            alert("感謝使用 EcIc Food 下單！將為你以特快全程冷鏈配送。");
+            cart = [];
+            updateCartUI();
+            toggleCartModal();
+        }
+
+        // AI Kitchen Functions & Gemini API Call
+        function openAiKitchenModal() {
+            document.getElementById('aiKitchenModal').classList.remove('hidden');
+        }
+
+        function closeAiKitchenModal() {
+            document.getElementById('aiKitchenModal').classList.add('hidden');
+        }
+
+        function setAiDish(dish) {
+            document.getElementById('aiDishInput').value = dish;
+            generateRecipeWithAi();
+        }
+
+        function quickInputRecipe(dish) {
+            openAiKitchenModal();
+            setAiDish(dish);
+        }
+
+        function submitHeroAiKitchen() {
+            const input = document.getElementById('heroDishInput').value;
+            if (!input) return;
+            openAiKitchenModal();
+            document.getElementById('aiDishInput').value = input;
+            generateRecipeWithAi();
+        }
+
+        async function generateRecipeWithAi() {
+            const dish = document.getElementById('aiDishInput').value.trim();
+            if (!dish) {
+                alert("請輸入想煮的菜式名稱！");
+                return;
+            }
+
+            const loading = document.getElementById('aiLoadingState');
+            const resultContainer = document.getElementById('aiResultContainer');
+
+            loading.classList.remove('hidden');
+            resultContainer.classList.add('hidden');
+
+            const systemPrompt = `You are the chief culinary AI for "EcIc Food" fresh food delivery. 
+The user wants to cook a dish: "${dish}".
+Return a JSON object matching this schema:
+{
+  "dishTitle": "Formal Dish Name in Traditional Chinese",
+  "servings": "Estimated Servings and Prep Time in Traditional Chinese",
+  "ingredients": [
+    {
+      "name": "Ingredient Name (e.g. 加拿大龍蝦 / 特級蒜蓉)",
+      "portion": "Portion size (e.g. 1隻 (約500g))",
+      "matchedProductId": 1 (Pick best matching integer 1-6 from available stock: 1=加拿大波士頓龍蝦, 2=北海道刺身級帶子, 3=挪威三文魚柳, 4=黑毛豬梅肉片, 5=蒜蓉醬汁包, 6=澳洲和牛)
+    }
+  ],
+  "steps": [
+    "Step 1 instruction in Traditional Chinese",
+    "Step 2 instruction in Traditional Chinese",
+    "Step 3 instruction in Traditional Chinese"
+  ]
+}`;
+
+            try {
+                const apiKey = "";
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${apiKey}`;
+                
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        contents: [{ parts: [{ text: `Generate ingredients and quick recipe for: ${dish}` }] }],
+                        systemInstruction: { parts: [{ text: systemPrompt }] },
+                        generationConfig: { responseMimeType: "application/json" }
+                    })
+                });
+
+                const data = await response.json();
+                const jsonText = data?.candidates?.[0]?.content?.parts?.[0]?.text;
+                if (!jsonText) throw new Error("No AI response content");
+
+                const result = JSON.parse(jsonText);
+                currentAiIngredients = result.ingredients;
+
+                // Render Results
+                document.getElementById('resDishTitle').innerText = result.dishTitle || dish;
+                document.getElementById('resServings').innerText = result.servings || "適合 2 人享用";
+
+                const ingList = document.getElementById('resIngredientsList');
+                ingList.innerHTML = result.ingredients.map(ing => {
+                    const matched = products.find(p => p.id === ing.matchedProductId) || products[0];
+                    return `
+                        <div class="bg-navy-900 border border-slate-800 p-3 rounded-xl flex items-center space-x-3">
+                            <img src="${matched.img}" class="w-12 h-12 rounded-lg object-cover" onerror="this.src='https://placehold.co/100/0B192C/FFFFFF?text=Food'">
+                            <div class="flex-1 min-w-0">
+                                <h5 class="text-xs font-bold text-white truncate">${ing.name}</h5>
+                                <p class="text-[11px] text-slate-400">${ing.portion}</p>
+                                <span class="text-[10px] text-emerald-400">配對：${matched.name} (HK$${matched.price})</span>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+
+                const stepsContainer = document.getElementById('resCookingSteps');
+                stepsContainer.innerHTML = result.steps.map((step, idx) => `
+                    <div class="flex gap-2">
+                        <span class="font-bold text-amber-400">${idx + 1}.</span>
+                        <p>${step}</p>
+                    </div>
+                `).join('');
+
+                loading.classList.add('hidden');
+                resultContainer.classList.remove('hidden');
+
+            } catch (error) {
+                console.error("AI Kitchen Error:", error);
+                loading.classList.add('hidden');
+                alert("AI 分析失敗，請稍後再試！");
+            }
+        }
+
+        function addAllAiIngredientsToCart() {
+            if (!currentAiIngredients || currentAiIngredients.length === 0) return;
+            currentAiIngredients.forEach(ing => {
+                const prodId = ing.matchedProductId || 1;
+                addToCart(prodId);
+            });
+            closeAiKitchenModal();
+        }
+
+        function filterProducts(cat) {
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('bg-navy-900', 'text-white');
+                btn.classList.add('bg-white', 'text-slate-700');
+            });
+            event.target.classList.add('bg-navy-900', 'text-white');
+            event.target.classList.remove('bg-white', 'text-slate-700');
+
+            if (cat === 'all') {
+                renderProducts(products);
+            } else {
+                renderProducts(products.filter(p => p.category === cat));
+            }
+        }
+
+        // Initialize on Load
+        window.onload = function() {
+            renderProducts();
+            updateCartUI();
+        };
+    </script>
+</body>
+</html>
